@@ -1,0 +1,16 @@
+{
+  "kafka_bootstrap_servers": "",
+  "kafka_api_key": "",
+  "kafka_api_secret": "",
+  "kafka_topic": "docs_chunks_raw",
+  "chunker_api_url": "http://localhost:8000/api/v1/chunk",
+  "schema_registry_url": "",
+  "schema_registry_api_key": "",
+  "schema_registry_api_secret": "",
+  "mongodb_uri": "",
+  "mongodb_database": "confluent_embeddings",
+  "mongodb_collection": "confluent_docs",
+  "openai_api_key": "",
+  "openai_model": "gpt-4o-mini",
+  "openai_timeout": 30
+}
