@@ -138,3 +138,7 @@ The system leverages Confluent Cloud's event streaming platform to create a real
 5. **Response Generation**:
    - OpenAI models generate factual, relevant responses
    - Responses are displayed in the Streamlit UI
+  
+
+
+Check the Linkedin post for a [quick demo](https://www.linkedin.com/posts/vishwajeetdabholkar_realtime-rag-kafka-activity-7300389340679933952-JUDy?utm_source=share&utm_medium=member_desktop&rcm=ACoAABxsm4oBtJCYOJB9BKISaNj92UD-a7MOGcw)
