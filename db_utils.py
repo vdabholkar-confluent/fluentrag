@@ -44,7 +44,7 @@ class MongoDBVectorSearch:
             pipeline = [
                 {
                     "$vectorSearch": {
-                        "index": "vector_index",
+                        "index": "vector_index_cc_docs",
                         "path": "chunk_content_embedding",
                         "queryVector": query_embedding,
                         "numCandidates": limit * 100,  # Significantly increased candidate pool
@@ -70,7 +70,7 @@ class MongoDBVectorSearch:
                 exact_pipeline = [
                     {
                         "$vectorSearch": {
-                            "index": "vector_index",
+                            "index": "vector_index_cc_docs",
                             "path": "chunk_content_embedding",
                             "queryVector": query_embedding,
                             "exact": True,  # Use exact nearest neighbor search
@@ -97,12 +97,12 @@ class MongoDBVectorSearch:
                 fallback_pipeline = [
                     {
                         "$vectorSearch": {
-                            "index": "vector_index",
+                            "index": "vector_index_cc_docs",
                             "path": "chunk_content_embedding",
                             "queryVector": query_embedding,
                             "numCandidates": limit * 200,
                             "limit": limit,  # Still maintain the same limit
-                            "minScore": 0.5  # Lower similarity threshold for fallback
+                            "minScore": 0.6  # Lower similarity threshold for fallback
                         }
                     },
                     {
@@ -118,11 +118,16 @@ class MongoDBVectorSearch:
             # Log detailed information
             logger.info(f"Retrieved {len(results)} documents from vector search")
             if results:
-                logger.info(f"Top result score: {results[0].get('score', 'N/A')}")
+                # logger.info(f"Top result score: {results[0].get('score', 'N/A')}")
+                logger.info(f"Top result score: {results[0].get('score', 'N/A'):.2f}")
+                # for i, result in enumerate(results):
+                #     score = result.get('score', 'N/A')
+                #     content_snippet = result.get('chunk_content', '')[:100] + "..."
+                #     logger.info(f"Result {i+1}: Score={score}, Content={content_snippet}")
                 for i, result in enumerate(results):
-                    score = result.get('score', 'N/A')
+                    score = result.get('score', 0)
                     content_snippet = result.get('chunk_content', '')[:100] + "..."
-                    logger.info(f"Result {i+1}: Score={score}, Content={content_snippet}")
+                    logger.info(f"Result {i+1}: Score={score:.2f}, Content={content_snippet}")
             
             # Ensure we're returning only the highest quality results, sorted by score
             sorted_results = sorted(results, key=lambda x: x.get('score', 0), reverse=True)
